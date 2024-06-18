@@ -20,4 +20,5 @@ def validate_dni(dni,list):
     for client in list:
         if client.dni == dni:
             print('DNI already exists')
+            return False
     return True

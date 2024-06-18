@@ -1,6 +1,9 @@
 import copy
 import unittest
+
 import database as db
+import helpers
+
 
 class TestDatabase(unittest.TestCase):
 
@@ -27,10 +30,17 @@ class TestDatabase(unittest.TestCase):
     def test_modify_client(self):
         client_to_modify = copy.copy( db.Clients.search('13D') )
         client_modified = db.Clients.modify('13D','Andres','Perez')
-        self.assertNotEqual(client_to_modify.name,db.Clients.search('13D').name)
+        # noqa: E999
+        self.assertEqual(client_to_modify.name,'Juan') # pyright: ignore
+        self.assertEqual(client_modified.name,'Andres') # pyright: ignore
 
     def test_delete_client(self):
         deleted_client = db.Clients.delete('13D')
         lost_client = db.Clients.search('13D')
-        self.assertEqual(deleted_client.dni,'13D')
+        self.assertEqual(deleted_client.dni,'13D') # pyright: ignore
         self.assertIsNone(lost_client)
+
+    def test_valid_dni(self):
+        self.assertTrue(helpers.validate_dni('00A',db.Clients.list))
+        self.assertFalse(helpers.validate_dni('213015u',db.Clients.list))
+        self.assertFalse(helpers.validate_dni('45H',db.Clients.list))

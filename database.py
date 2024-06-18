@@ -1,3 +1,4 @@
+from typing import List
 class Client:
 
     def __init__(self,dni,name,last_name):
@@ -5,11 +6,11 @@ class Client:
         self.name = name
         self.last_name = last_name
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"({self.dni}) {self.name} {self.last_name}"
 
 class Clients:
-    list = []
+    list: List[Client] = []
 
     @staticmethod
     def search(dni):

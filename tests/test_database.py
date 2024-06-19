@@ -1,6 +1,8 @@
 import copy
+import csv
 import unittest
 
+import config
 import database as db
 import helpers
 
@@ -44,3 +46,17 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(helpers.validate_dni('00A',db.Clients.list))
         self.assertFalse(helpers.validate_dni('213015u',db.Clients.list))
         self.assertFalse(helpers.validate_dni('45H',db.Clients.list))
+
+    def test_write_csv(self):
+        db.Clients.delete('13D')
+        db.Clients.delete('24j')
+        db.Clients.modify('45H','Lucia','Perez')
+
+        dni, name, last_name = None, None, None
+        with open(config.DATABASE_PATH, newline= '\n') as f:
+            reader = csv.reader(f, delimiter=';')
+            dni, name, last_name = next(reader)
+
+        self.assertEqual(dni, '45H')
+        self.assertEqual(name, 'Lucia')
+        self.assertEqual(last_name, 'Perez')

@@ -1,4 +1,5 @@
 from typing import List
+import config
 import csv
 class Client:
 
@@ -12,7 +13,7 @@ class Client:
 
 class Clients:
     list: List[Client] = []
-    with open('clients.csv',newline='\n') as f:
+    with open(config.DATABASE_PATH,newline='\n') as f:
         reader = csv.reader(f, delimiter= ';')
         for dni,name,last_name in reader:
             client = Client(dni,name,last_name)
@@ -50,7 +51,7 @@ class Clients:
 
     @staticmethod
     def save():
-        with open('clients.csv', 'w', newline='\n') as f:
+        with open(config.DATABASE_PATH, 'w', newline='\n') as f:
             writer = csv.writer(f, delimiter=';')
             for client in Clients.list:
                 writer.writerow(( client.dni,client.name,client.last_name ))

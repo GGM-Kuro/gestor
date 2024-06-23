@@ -40,9 +40,9 @@ def iniciar():
                     dni = helpers.read_text(3, 3, "DNI (2 int and 1 char)").upper()
                     if helpers.validate_dni(dni,db.Clients.list):
                         break
-                name = helpers.read_text(2, 30, "Name (2 int and 30 char)").capitalize()
+                name = helpers.read_text(2, 30, "Name (from 2 to 30 chars)").capitalize()
                 last_name = helpers.read_text(
-                    2, 30, "Last Name (2 int and 30 char)"
+                    2, 30, "Last Name (from 2 to 30 chars)"
                 ).capitalize()
                 db.Clients.create(dni, name, last_name)
                 print("Client added successfully")
@@ -53,10 +53,10 @@ def iniciar():
                 client = db.Clients.search(dni)
                 if client:
                     name = helpers.read_text(
-                        2, 30, f"Name (2 int and 30 char) [{client.name}]"
+                        2, 30, f"Name (from 2 to 30 chars) [{client.name}]"
                     ).capitalize()
                     last_name = helpers.read_text(
-                        2, 30, f"Last Name (2 int and 30 char) [{client.last_name}]"
+                        2, 30, f"Last Name (from 2 to 30 chars) [{client.last_name}]"
                     ).capitalize()
                     db.Clients.modify(dni, name, last_name)
                     print("Client modified successfully")

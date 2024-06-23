@@ -14,6 +14,7 @@ def read_text(min_length=0, max_length=100, mensaje=None):
             return text
 
 def validate_dni(dni,list):
+    dni = dni.upper()
     if not re.match('[0-9]{2}[A-Z]$',dni):
         print('Invalid dni')
         return False
